@@ -1,15 +1,14 @@
 const express = require("express");
 const registerRouter = express.Router();
 
-const getregister = registerRouter.get("/register", (req, res) => {
-  console.log("register page");
-  res.render("register");
-});
+const usercontroller = require("../controller/userController");
 
-const postregister = registerRouter.post("/register", (req, res) => {
-  console.log("postregister");
-  res.render("postregister");
-});
+const getregister = registerRouter.get("/register", usercontroller.getregister);
+
+const postregister = registerRouter.post(
+  "/register",
+  usercontroller.postregister,
+);
 
 module.exports = {
   getregister,

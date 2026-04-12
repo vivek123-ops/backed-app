@@ -7,6 +7,7 @@ const { getregister, postregister } = require("./Routers/registerRouter");
 const app = express();
 app.set("view engine", "ejs");
 
+
 app.use(home);
 app.use(getregister);
 app.use(postregister);
