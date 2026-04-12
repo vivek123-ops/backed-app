@@ -14,10 +14,37 @@
         </h1>
 
         <div style="text-align: center; margin-top: 20px;">
-            <a href="/register"
-                style="background-color: chocolate; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
-                Go to Register
-            </a>
+        </div>
+
+        <div
+            style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:40px; font-family:Arial;">
+
+            <% registerData.forEach(user=> { %>
+
+                <div
+                    style="width:260px; border:1px solid #ddd; border-radius:12px; padding:15px; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-family:Arial; text-align:center;">
+
+                    <img src=<%=user.image%>
+                    style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
+
+                    <h3 style="margin:10px 0; color:#333;">
+                        <%=user.place%>
+                    </h3>
+
+                    <p style="color:#777; font-size:14px;">Author: <%=user.username%>
+                    </p>
+
+                    <p style="color:#2c3e50; font-weight:bold;">₹<%=user.price%>
+                    </p>
+
+                    <button
+                        style="margin-top:10px; padding:8px 12px; background:#4CAF50; color:white; border:none; border-radius:6px; cursor:pointer;">
+                        View Details
+                    </button>
+
+                </div>
+                <% }) %>
+
         </div>
 </body>
 
