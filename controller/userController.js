@@ -26,8 +26,16 @@ const postregister = (req, res) => {
   newPost.save();
   res.render("postregister", { postdetail: data });
 };
+
+const detailPage = (req, res) => {
+  const post = Post.findid(req.params.id);
+  console.log(post);
+  res.render("detailPage",{post});
+};
+
 module.exports = {
   gethome,
   getregister,
   postregister,
+  detailPage,
 };

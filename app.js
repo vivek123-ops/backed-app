@@ -1,5 +1,5 @@
 const express = require("express");
-const home = require("./Routers/homeRouter");
+const { home, detailPage } = require("./Routers/homeRouter");
 
 // localmodeul
 const { getregister, postregister } = require("./Routers/registerRouter");
@@ -11,6 +11,7 @@ app.use(express.urlencoded());
 app.use(home);
 app.use(getregister);
 app.use(postregister);
+app.use(detailPage);
 
 app.listen(3000, () => {
   console.log("server is starting your localhost");

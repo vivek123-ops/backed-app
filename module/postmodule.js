@@ -1,12 +1,13 @@
 let registerData = [];
 
 class Post {
-  constructor(username, price, gender, image,place) {
+  constructor(username, price, gender, image, place) {
+    this.id = Math.random().toString();
     this.username = username;
     this.price = price;
     this.gender = gender;
     this.image = image;
-    this.place=place;
+    this.place = place;
   }
 
   save() {
@@ -15,6 +16,11 @@ class Post {
 
   static fetchAll() {
     return registerData;
+  }
+
+  static findid(id) {
+    const post = registerData.find((data) => data.id == id);
+    return post;
   }
 }
 

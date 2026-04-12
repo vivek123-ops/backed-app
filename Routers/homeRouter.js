@@ -5,4 +5,9 @@ const usercontroller = require("../controller/userController");
 
 const home = homeRouter.get("/", usercontroller.gethome);
 
-module.exports = home;
+const detailPage = homeRouter.get("/register/:id",usercontroller.detailPage );
+
+module.exports = {
+  home,
+  detailPage,
+};
