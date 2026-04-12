@@ -1,20 +1,24 @@
-const gethome=(req, res) => {
+const Post = require("../module/postmodule");
+
+const gethome = (req, res) => {
   console.log("home page");
   res.render("home");
-}
+};
 
-const getregister=(req, res) => {
+const getregister = (req, res) => {
   console.log("register page");
   res.render("register");
-}
+};
 
- const postregister=(req, res) => {
+const postregister = (req, res) => {
   console.log("postregister");
-  res.render("postregister");
-}
-
-module.exports={
+  const data = ({ username, price, gender, image } = req.body);
+  const newPost = new Post(data.username, data.price, data.gender, data.image);
+  newPost.save();
+  res.render("postregister", { postdetail: data });
+};
+module.exports = {
   gethome,
   getregister,
   postregister,
-}
+};
