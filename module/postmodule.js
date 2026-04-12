@@ -1,4 +1,4 @@
-let registerData = [];
+const database = require("../utility/database");
 
 class Post {
   constructor(username, price, gender, image, place) {
@@ -11,20 +11,19 @@ class Post {
   }
 
   save() {
-    registerData.push(this);
+    return database.execute(
+      "INSERT INTO registation (id, name, gender, price, location, url) VALUES (?, ?, ?, ?, ?, ?)",
+      [this.id, this.username, this.gender, this.price, this.place, this.image],
+    );
   }
 
   static fetchAll() {
-    return registerData;
+    return database.execute("SELECT * FROM registation");
   }
 
   static findid(id) {
-    const post = registerData.find((data) => data.id == id);
-    return post;
+    return database.execute("SELECT * FROM registation WHERE id = ?", [id]);
   }
 }
 
-module.exports = {
-  Post,
-  registerData,
-};
+module.exports = Post;

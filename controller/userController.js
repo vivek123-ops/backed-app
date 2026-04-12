@@ -1,36 +1,40 @@
-const { Post } = require("../module/postmodule");
+const Post = require("../module/postmodule"); 
 
-const { registerData } = require("../module/postmodule");
-
+// HOME
 const gethome = (req, res) => {
-  console.log("home page");
-  console.log(registerData);
-  res.render("home", { registerData });
+  Post.fetchAll()
+    .then(([rows]) => {
+      res.render("home", { registerData: rows });
+    })
+    .catch((err) => console.log(err));
 };
 
+// REGISTER PAGE
 const getregister = (req, res) => {
-  console.log("register page");
   res.render("register");
 };
 
+// SAVE DATA
 const postregister = (req, res) => {
-  console.log("postregister");
-  const data = ({ username, price, gender, image, place } = req.body);
-  const newPost = new Post(
-    data.username,
-    data.price,
-    data.gender,
-    data.image,
-    data.place,
-  );
-  newPost.save();
-  res.render("postregister", { postdetail: data });
+  const { username, price, gender, image, place } = req.body;
+
+  const newPost = new Post(username, price, gender, image, place);
+
+  newPost
+    .save()
+    .then(() => res.render("postregister", { postdetail: req.body }))
+    .catch(() => console.log("data is not added"));
 };
 
+// DETAIL PAGE
 const detailPage = (req, res) => {
-  const post = Post.findid(req.params.id);
-  console.log(post);
-  res.render("detailPage",{post});
+  const id = req.params.id;
+
+  Post.findid(id)
+    .then(([rows]) => {
+      res.render("detailPage", { post: rows[0] });
+    })
+    .catch((err) => console.log(err));
 };
 
 module.exports = {
