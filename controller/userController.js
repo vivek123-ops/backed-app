@@ -1,8 +1,11 @@
-const Post = require("../module/postmodule");
+const {Post} = require("../module/postmodule");
+
+const { registerData } = require("../module/postmodule");
 
 const gethome = (req, res) => {
   console.log("home page");
-  res.render("home");
+  console.log(registerData);
+  res.render("home", { registerData });
 };
 
 const getregister = (req, res) => {

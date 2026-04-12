@@ -1,21 +1,23 @@
+let registerData = [];
 
+class Post {
+  constructor(username, price, gender, image) {
+    this.username = username;
+    this.price = price;
+    this.gender = gender;
+    this.image = image;
+  }
 
-let registerData=[];
+  save() {
+    registerData.push(this);
+  }
 
-
-module.exports=class Post{
-    constructor(username,price,gender,image){
-        this.username=username;
-        this.price=price;
-        this.gender=gender;
-        this.image=image;
-    }
-
-    save(){
-        registerData.push(this);
-    }
-
-    static fetchAll(){
-        return registerData;
-    }
+  static fetchAll() {
+    return registerData;
+  }
 }
+
+module.exports = {
+  Post,
+  registerData,
+};
