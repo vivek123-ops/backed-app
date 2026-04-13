@@ -1,4 +1,4 @@
-const Post = require("../module/postmodule"); 
+const Post = require("../module/postmodule");
 
 // HOME
 const gethome = (req, res) => {
@@ -18,12 +18,18 @@ const getregister = (req, res) => {
 const postregister = (req, res) => {
   const { username, price, gender, image, place } = req.body;
 
+  console.log(req.body); // debug
+
   const newPost = new Post(username, price, gender, image, place);
 
   newPost
     .save()
-    .then(() => res.render("postregister", { postdetail: req.body }))
-    .catch(() => console.log("data is not added"));
+    .then(() => {
+      res.render("postregister");
+    })
+    .catch((err) => {
+      console.log("ERROR:", err);
+    });
 };
 
 // DETAIL PAGE

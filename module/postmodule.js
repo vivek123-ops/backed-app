@@ -2,7 +2,6 @@ const database = require("../utility/database");
 
 class Post {
   constructor(username, price, gender, image, place) {
-    this.id = Math.random().toString();
     this.username = username;
     this.price = price;
     this.gender = gender;
@@ -12,8 +11,8 @@ class Post {
 
   save() {
     return database.execute(
-      "INSERT INTO registation (id, name, gender, price, location, url) VALUES (?, ?, ?, ?, ?, ?)",
-      [this.id, this.username, this.gender, this.price, this.place, this.image],
+      "INSERT INTO registation (name, gender, price, location, url) VALUES (?, ?, ?, ?, ?)",
+      [this.username, this.gender, this.price, this.place, this.image]
     );
   }
 
