@@ -23,6 +23,10 @@ class Post {
   static findid(id) {
     return database.execute("SELECT * FROM registation WHERE id = ?", [id]);
   }
+
+  static deletePost(id){
+    return database.execute("delete from registation where id=?",[id])
+  }
 }
 
 module.exports = Post;

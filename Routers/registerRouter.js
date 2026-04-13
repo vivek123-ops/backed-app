@@ -10,7 +10,10 @@ const postregister = registerRouter.post(
   usercontroller.postregister,
 );
 
+const deletepage = registerRouter.get("/register/delete/:id",usercontroller.deletepage );
+
 module.exports = {
   getregister,
   postregister,
+  deletepage,
 };

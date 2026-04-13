@@ -43,9 +43,25 @@ const detailPage = (req, res) => {
     .catch((err) => console.log(err));
 };
 
+// delete post;
+const deletepage = (req, res) => {
+  const id = req.params.id;
+
+  Post.deletePost(id)
+    .then(() => {
+      console.log("Data deleted successfully");
+      res.redirect("/"); // ya jaha redirect karna hai
+    })
+    .catch((err) => {
+      console.log("Error deleting data:", err);
+      res.status(500).send("Delete failed");
+    });
+};
+
 module.exports = {
   gethome,
   getregister,
   postregister,
   detailPage,
+  deletepage,
 };

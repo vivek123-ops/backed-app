@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,52 +11,58 @@
 
     <%- include("partical/header") %>
 
-    <div style="width:400px; margin:60px auto; padding:20px; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center; position:relative;">
+        <div
+            style="width:400px; margin:60px auto; padding:20px; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center; position:relative;">
 
-        <!-- ❤️ Favorite Button -->
-        <span onclick="toggleFav(this)"
-              style="position:absolute; top:15px; right:20px; font-size:24px; cursor:pointer; color:#ccc;">
-            ♥
-        </span>
+            <!-- ❤️ Favorite Button -->
+            <span onclick="toggleFav(this)"
+                style="position:absolute; top:15px; right:20px; font-size:24px; cursor:pointer; color:#ccc;">
+                ♥
+            </span>
 
-        <img src="<%= post.url%>"
-             style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
+            <img src="<%= post.url%>" style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
 
-        <h2 style="margin:15px 0; color:#333;">
-            <%= post.name %>
-        </h2>
+            <h2 style="margin:15px 0; color:#333;">
+                <%= post.name %>
+            </h2>
 
-        <p style="color:#555; font-size:15px;">
-            Gender: <%= post.gender %>
-        </p>
+            <p style="color:#555; font-size:15px;">
+                Gender: <%= post.gender %>
+            </p>
 
-        <h3 style="color:#27ae60;">
-            ₹ <%= post.price %>
-        </h3>
+            <h3 style="color:#27ae60;">
+                ₹ <%= post.price %>
+            </h3>
 
-        <div style="color:#f1c40f; font-size:20px; margin:10px 0;">
-            ★★★★☆
+
+            <p style="color:#777;">4.0 / 5 Rating</p>
+
+            <a href="/register/delete/<%=post.id%>" style="text-decoration:none;">
+                <button
+                    style="margin-top:15px; padding:10px 40px; background:red; color:white; border:none; border-radius:6px; cursor:pointer;">
+                    delete  
+                </button>
+            </a>
+
+            <a href="/" style="text-decoration:none;">
+                <button
+                    style="margin-top:15px; padding:10px 15px; background:#3498db; color:white; border:none; border-radius:6px; cursor:pointer;">
+                    Back to Home
+                </button>
+            </a>
+
         </div>
 
-        <p style="color:#777;">4.0 / 5 Rating</p>
-
-        <a href="/" style="text-decoration:none;">
-            <button style="margin-top:15px; padding:10px 15px; background:#3498db; color:white; border:none; border-radius:6px; cursor:pointer;">
-                Back to Home
-            </button>
-        </a>
-
-    </div>
-
-    <script>
-        function toggleFav(el) {
-            if (el.style.color === "red") {
-                el.style.color = "#ccc";
-            } else {
-                el.style.color = "red";
+        <script>
+            function toggleFav(el) {
+                if (el.style.color === "red") {
+                    el.style.color = "#ccc";
+                } else {
+                    el.style.color = "red";
+                }
             }
-        }
-    </script>
+        </script>
 
 </body>
+
 </html>
