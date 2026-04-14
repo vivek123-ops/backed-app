@@ -1,12 +1,14 @@
 const Post = require("../module/postmodule");
 
 // HOME
-const gethome = (req, res) => {
-  Post.fetchAll()
-    .then(([rows]) => {
-      res.render("home", { registerData: rows });
-    })
-    .catch((err) => console.log(err));
+const gethome = async (req, res) => {
+  try {
+    const [rows] = await Post.fetchAll();
+    res.render("home", { registerData: rows });
+  } catch (err) {
+    console.log("Error in gethome:", err);
+    res.status(500).send("Server Error");
+  }
 };
 
 // REGISTER PAGE
@@ -15,47 +17,72 @@ const getregister = (req, res) => {
 };
 
 // SAVE DATA
-const postregister = (req, res) => {
-  const { username, price, gender, image, place } = req.body;
+const postregister = async (req, res) => {
+  try {
+    const { username, price, gender, image, place } = req.body;
 
-  console.log(req.body); // debug
+    console.log(req.body);
 
-  const newPost = new Post(username, price, gender, image, place);
+    const newPost = new Post(username, price, gender, image, place);
 
-  newPost
-    .save()
-    .then(() => {
-      res.render("postregister");
-    })
-    .catch((err) => {
-      console.log("ERROR:", err);
-    });
+    await newPost.save();
+
+    res.render("postregister");
+  } catch (err) {
+    console.log("Error in postregister:", err);
+    res.status(500).send("Data not saved");
+  }
 };
 
 // DETAIL PAGE
-const detailPage = (req, res) => {
-  const id = req.params.id;
+const detailPage = async (req, res) => {
+  try {
+    const id = req.params.id;
 
-  Post.findid(id)
-    .then(([rows]) => {
-      res.render("detailPage", { post: rows[0] });
-    })
-    .catch((err) => console.log(err));
+    const [rows] = await Post.findid(id);
+
+    res.render("detailPage", { post: rows[0] });
+  } catch (err) {
+    console.log("Error in detailPage:", err);
+    res.status(500).send("Error loading detail page");
+  }
 };
 
-// delete post;
-const deletepage = (req, res) => {
-  const id = req.params.id;
+// DELETE POST
+const deletepage = async (req, res) => {
+  try {
+    const id = req.params.id;
 
-  Post.deletePost(id)
-    .then(() => {
-      console.log("Data deleted successfully");
-      res.redirect("/"); // ya jaha redirect karna hai
-    })
-    .catch((err) => {
-      console.log("Error deleting data:", err);
-      res.status(500).send("Delete failed");
-    });
+    await Post.deletePost(id);
+
+    console.log("Data deleted successfully");
+    res.redirect("/");
+  } catch (err) {
+    console.log("Error deleting data:", err);
+    res.status(500).send("Delete failed");
+  }
+};
+
+// ADD FAVOURITE
+const addfavourite = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    // check already exist
+    const [rows] = await Post.checkfavourite(id);
+
+    if (rows.length > 0) {
+      return res.send("Data already exists ❌");
+    }
+
+    // insert
+    await Post.addfavourite(id);
+
+    res.send("Data added successfully ✅");
+  } catch (err) {
+    console.log("Error in addfavourite:", err);
+    res.status(500).send("Error while adding data ❌");
+  }
 };
 
 module.exports = {
@@ -64,4 +91,5 @@ module.exports = {
   postregister,
   detailPage,
   deletepage,
+  addfavourite,
 };
